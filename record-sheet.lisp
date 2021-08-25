@@ -31,13 +31,14 @@
    (role
     :initarg :role
     :accessor role)
-   (skill
-    :initarg :skill
-    :accessor skill
-    :initform 4)
-   (damage
-    :initarg :damage
-    :accessor damage)
+   (pilot
+    :initarg :pilot
+    :accessor pilot
+    :type pilot
+    :initform (make-instance 'pilot :name "Shooty McShootface" :skill 4))
+   (damages
+    :initarg :damages
+    :accessor damages)
    (overheat
     :initarg :ov
     :accessor overheat)
@@ -65,25 +66,25 @@
     :initform '()
     :accessor crits)))
 
-(defun make-element (&optional (current-armor nil) (curent-structure nil) &key name pv kind size tmm mv-distance mv-type role damage ov max-armor max-structure specials crits)
-  ((if (eq current-armor nil)
+(defun make-element (&key name pv kind size tmm mv-distance mv-type role damages ov current-armor max-armor current-structure max-structure specials crits)
+  (if (eq current-armor nil)
        (setf current-armor max-armor))
    (if (eq current-structure nil)
-       (setf current-structure max-armor))
+       (setf current-structure max-structure))
    (make-instance 'element
                  :name name
                  :pv pv
                  :kind kind
                  :size size
                  :tmm tmm
-                 :mv-distance mv-type
+                 :mv-distance mv-distance
                  :mv-type mv-type
                  :role role
-                 :damage damage
+                 :damages damages
                  :ov ov
                  :current-armor current-armor
                  :max-armor max-armor
                  :current-structure current-structure
                  :max-structure max-structure
                  :specials specials
-                 :crits crits)))
+                 :crits crits))

@@ -8,4 +8,6 @@
   :serial t
   :depends-on (#:ltk)
   :components ((:file "package")
+               (:file "crew")
+               (:file "record-sheet")
                (:file "cl-alphastrike")))
