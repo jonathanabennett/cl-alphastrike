@@ -3,6 +3,7 @@
 (in-package #:cl-alphastrike)
 
 (defun display-record-sheet (element)
+  "This takes an `element' object as defined in record-sheet.lisp and formats it for display using ltk."
   (let ((name     (make-instance 'label :text (name element)))
         (pv       (make-instance 'label :text (pv element)))
         (kind     (make-instance 'label :text (kind element)))
@@ -35,5 +36,6 @@
            (grid crits 8 0))))
 
 (defun main (mek)
+  "Main loop. Currently just display the record sheet."
   (with-ltk ()
     (display-record-sheet mek)))
