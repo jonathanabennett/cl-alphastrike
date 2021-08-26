@@ -1,6 +1,7 @@
 (in-package :cl-alphastrike)
 
-(defun locust-lct-1v ()(make-element
+(defun locust-lct-1v ()
+  (make-element
    :name "locust lct-1v"
    :pv 18
    :kind :bm
