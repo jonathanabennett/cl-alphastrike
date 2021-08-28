@@ -1,0 +1,5 @@
+#+TITLE: README
+#+AUTHOR: Jonathan A Bennett <doulos05@gmail.com>
+
+* cl-alphastrike
+This is a project to port Alpha Strike to the computer.
