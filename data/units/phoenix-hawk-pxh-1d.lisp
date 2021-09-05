@@ -39,7 +39,7 @@ systemmode:COMMUNICATIONS:T10-B
 systemmanufacturer:TARGETING:O/P
 systemmode:TARGETING:911 "
   (make-element
-   :name "phoenix-hawk-pxh-1d"
+   :name "Phoenix Hawk pxh-1d"
    :pv 26
    :kind :bm
    :size 2

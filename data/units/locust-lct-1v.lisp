@@ -39,7 +39,7 @@ systemmode:COMMUNICATIONS:T10-B
 systemmanufacturer:TARGETING:O/P
 systemmode:TARGETING:911 "
   (make-element
-   :name "locust lct-1v"
+   :name "Locust lct-1v"
    :pv 18
    :kind :bm
    :size 1
