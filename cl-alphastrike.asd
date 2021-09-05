@@ -10,4 +10,7 @@
   :components ((:file "package")
                (:file "crew")
                (:file "record-sheet")
-               (:file "cl-alphastrike")))
+               (:file "cl-alphastrike"))
+  :build-operation :program-op
+  :build-pathname "cl-alphastrike"
+  :entry-point "cl-alphastrike:main")

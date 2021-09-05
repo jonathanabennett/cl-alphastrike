@@ -17,9 +17,11 @@ them before attempting to download.
 
 Steps to install:
 1) Clone this repository into =~/quicklisp/local-projects/cl-alphastrike=
-2) =make=
+2) cd into the repository and run =make build=
 3) Run the program with =./alphastrike=.
-4) Add this directory to your path for easy access.
+4) Add this directory to your path for easy access. Because it depends on the
+   data folder, you must move the whole folder after you build it, not just the
+   executable.
 
 * What works
 Right now (v0.1) nothing. It can display two of 4 different units (which must
