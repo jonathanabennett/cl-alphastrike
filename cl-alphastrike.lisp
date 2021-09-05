@@ -5,7 +5,17 @@
 (defun damages-dropdown (damages-list rs-frame)
   (make-instance 'combobox :values (mapcar 'display damages-list) :master rs-frame))
 
-(defun display-record-sheet (element rs-frame)
+(defun make-damage-bubbles (current max parent-frame)
+  "Rewrite this so that the label is a label text label and the canvas is perfectly sized to hold the appropriate number of bubbles.
+Then, use the grid manager to pack them both into the appropriate parent frame."
+  (let ((bubbles (make-instance 'canvas :master parent-frame :width (+ (* max 15) 5) :height 15)))
+    (progn (dotimes (i max)
+             (let ((circle (create-oval bubbles (+ (* i 15) 5) 5 (+ (* i 15) 15) 15)))
+               (if (> (+ i 1) current)
+                   (itemconfigure bubbles circle :fill :black)))))
+    (pack bubbles)))
+
+(defun display-record-sheet (element rs-frame rs-label-text)
   "This takes an `element' object as defined in record-sheet.lisp and formats it for display using ltk."
   (let ((unit-name-label (make-instance 'label :text "Unit Name:" :font "Helvetica 20 bold" :master rs-frame :anchor :w))
         (name            (make-instance 'label :text (name element) :font "Helvetica 20" :master rs-frame :anchor :sw))
