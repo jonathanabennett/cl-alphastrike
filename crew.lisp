@@ -9,8 +9,8 @@
     :documentation "Pilot's skill level. 4 is the default."
     :initarg :skill
     :initform 4
-    :accessor skill))
-  :documentation "A pilot of a 31st Century death machine!")
+    :accessor skill)))
+
 
 (defgeneric display (obj)
   (:documentation "Pretty print an object for display in the GUI"))

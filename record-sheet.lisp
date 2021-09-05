@@ -20,14 +20,7 @@
    :documentation "A list containing up to 3 damage values, for S, M, and L range attacks."
    :initarg :range-brackets
    :accessor range-brackets
-   :initform '(0 0 0)))
-  :documentation "Damage is its own object to simplify printing in the GUI.
-The object consists of `attack-type' and `range-brackets'.
-`attack-type' is a symbol (for quick and easy matching). By default it is `:standard'.
-Other options include `:FLAK', `:AC', `:SRM', `:LRM', and `:IF'.
-`range-brackets' is a list of 3 values. For short, medium, and long range.
-If the `attack-type' is `:IF', only the final value should be marked.
-A value of `0.5' is the same as as `0*' value in the tabletop game.")
+   :initform '(0 0 0))))
 
 (defun make-damage-value (&key damage-type range-brackets)
   (make-instance 'damage-value :atk-type damage-type :range-brackets range-brackets))
@@ -119,11 +112,7 @@ contain other damage types like `SRM' or `IF'."
 `crit' type."
     :initarg :crits
     :initform '()
-    :accessor crits))
-  :documentation "This defines an `element', which is what gets placed on the
-board. If I expand this game up to BF or SBF level, elements will get rolled
-into units and then formations, but that is for later. For now, all game pieces
-are elements. Eventually, this will need to include images.")
+    :accessor crits)))
 
 (defun make-element (&key name pv kind size tmm mv-distance mv-type role damages ov current-armor max-armor current-structure max-structure specials crits)
   "Make an element, checking for values typically missing such as
