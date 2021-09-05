@@ -11,7 +11,7 @@ TCL/TK is available as a downloadable binary for Windows,
 but I do not have a Windows machine on which to test this.
 PRs are welcome to help with installation on Windows.
 
-Additionally, this project depends on SBCL to compile and Quicklisp for
+Additionally, this project depends on [[http://www.sbcl.org/index.html][SBCL]] to compile and [[https://www.quicklisp.org/beta/][Quicklisp]] for
 dependency management. Please see the documentation on their websites to install
 them before attempting to download.
 
@@ -24,11 +24,12 @@ Steps to install:
    executable.
 
 * What works
-Right now (v0.1) nothing. It can display two of 4 different units (which must
-be set by modifying the cl-alphastrike.lisp file directly).
+Right now (v0.1), almost nothing. It can display two of 4 different units (which
+must be set by modifying the cl-alphastrike.lisp file directly).
 There is no way to modify the units (applying damage or critical hits).
 There is no map. This is largely just a mockup demonstrating what I want the
 final version to look like.
+Feedback is welcome on the specific layout and how to make it look better.
 
 * What's coming
 ** 0.1.1
@@ -36,13 +37,13 @@ The next step will be a very primitive implementation of the rules, allowing a
 hot-seat style duel between two elements. The map will be a featureless plain,
 the pilots will all be skill level 4, facing will not be calculated, critical
 hits will not function, special rules for different attack types will not work...
-Basically, you will be able to move, shoot, and take damage.
+Basically, you will be able to move, shoot, and lose armor/structure.
 ** 0.1.2
 Full implementation of introductory rules for maps and movement. Allow multiple
 units per side.
 ** 0.1.3
-Full implementation of introductory rules for attacks and damage (minus
-physical attacks).
+Full implementation of introductory rules for attacks and damage (includes
+critical hits but not physical attacks).
 ** 0.1.4
 Implementation of physical attacks. Full implementation of Heat and Specials.
 ** 0.1.5
@@ -52,26 +53,29 @@ Add unit images, saving the game, and other clean up before moving on to
 implement the Standard Ruleset in the 0.2 series.
 
 * How to contribute
-How you can help depends on how much you know lisp.
+How you can help depends on how much you know Lisp.
 ** I'm a keeper of the parentheses, I wield them like the lightning bolts of Zeus.
-Awesome! Please help me, this is the largest project I've ever written in Common
-Lisp, I barely know what I'm doing. We can chat about specifics but areas I know
-I need help with are:
+Awesome! Your help is definitely welcome! This is the largest project I've ever
+written in Common Lisp, I feel like I barely know what I'm doing. We can chat
+about specifics but areas I know I need help with are:
 
-1) GUI redesign. I know nothing about GUIs, I've selected LTK because it is the
-   easiest to set up on other people's computers (AFAIK). But it looks ugly as
-   sin because I don't know what I'm doing.
+1) GUI redesign. I've selected LTK because it is the easiest to set up on other
+   people's computers (AFAIK). But it looks ugly as sin because I don't know
+   how to style it.
 2) Movement Algorithm. Movement will probably require some variation on A*. I'm
    an amateur, A* is really hard for me. I'd love some help implementing it.
 3) AI. Eventually, I want to have a bot you can play against. I know a tiny bit
    about how to implement that, but I'd welcome help.
 4) Network. I'd love to have a way to play against someone else over the network.
-   I realize this will require a client-server setup, but that's all I know.
+   I realize this will require a client-server setup and likely some extensive
+   rewriting (though I've tried to separate things out as best I can to make
+   that easier), but that's all I know.
 
 ** I know this Lisp you speak of.
 Fantastic, pull requests are welcome to help me with whatever catches your
 fancy. Particularly, I'd love for someone to help me with the Windows build. I'm
 able to test builds for MacOS and Linux on my computers but not Windows.
+
 ** Common lisp? No, I speak just fine. But I do know my Battletech!
 There are a bunch of elements in the Battletech universe which will need to be
 created. The README in =data/units= explains the data format, just copy an
