@@ -9,6 +9,7 @@
   :depends-on (#:ltk)
   :components ((:file "package")
                (:file "crew")
+               (:file "map")
                (:file "record-sheet")
                (:file "cl-alphastrike"))
   :build-operation :program-op
