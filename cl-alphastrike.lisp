@@ -1,14 +1,15 @@
 ;;;; cl-alphastrike.lisp
 
 (in-package #:cl-alphastrike)
+(defparameter *here* (or *compile-file-truename* *load-truename* *default-pathname-defaults*))
 
 (defvar *layout* (make-layout :hex-to-pixel-matrix (vector (/ 3.0 2.0) 0 (/ (sqrt 3.0) 2.0) (sqrt 3.0))
              :pixel-to-hex-matrix (vector (/ 2.0 3.0) 0 (/ -1.0 3.0) (/ (sqrt 3.0) 3.0))
              :start-angle 0
-             :x-size 30
-             :y-size 30
-             :x-origin 0
-             :y-origin 0))
+             :x-size 10
+             :y-size 10
+             :x-origin 100
+             :y-origin 100))
 
 (defun damages-dropdown (damages-list rs-frame)
   (make-instance 'combobox :values (mapcar 'display damages-list) :master rs-frame))
@@ -72,7 +73,7 @@ Then, use the grid manager to pack them both into the appropriate parent frame."
 
 (defun load-data ()
   "Load the contents of the data directory in prepration for execution."
-  (uiop:chdir "~/quicklisp/local-projects/cl-alphastrike/")
+  (uiop:chdir *here*)
   (load "data/units/locust-lct-1v.lisp")
   (load "data/units/phoenix-hawk-pxh-1d.lisp")
   (load "data/units/marauder-mad-3r.lisp")
@@ -85,12 +86,14 @@ Then, use the grid manager to pack them both into the appropriate parent frame."
     (wm-title *tk* "Alphastrike")
     (configure main-window :padding "3 3 12 12")
     (grid main-window 0 0)
-    (let ((map (make-instance 'canvas :master main-window :height 800 :width 800))
-          (h1 (make-hexagon :q 0 :r 0 :s 0)))
+    (let* ((map (make-instance 'canvas :master main-window :height 800 :width 800))
+           (h1 (create-polygon map (draw-hex (make-hexagon :q 0 :r 0 :s 0) *layout*)))
+           (h2 (create-polygon map (draw-hex (make-hexagon :q 1 :r -1 :s 0) *layout*))))
       ;; Call fill map function here
       (grid map 0 0 :rowspan 3)
-      (draw-hex h1 map *layout*)
-      (create-text map 10 10 "Map Goes Here"))
+      (itemconfigure map h1 :fill :red)
+      (itemconfigure map h2 :fill :blue)
+      )
     (let ((my-sheet (make-instance 'frame :master main-window :borderwidth 2 :relief :ridge))
           (mek (phoenix-hawk-pxh-1d)))
       (configure my-sheet :padding "3 0 0 12")

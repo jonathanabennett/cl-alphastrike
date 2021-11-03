@@ -29,7 +29,7 @@
        (= (r hex1) (r hex2))
        (= (q hex1) (q hex2))))
 
-(defmethod hex-add ((a hexagon) (b hexagon))
+(defmethod hex-addition ((a hexagon) (b hexagon))
   "Uses Cartesian addition to add two hexagons together."
   (make-hexagon :q (+ (q a) (q b))
                 :r (+ (r a) (r b))
@@ -59,7 +59,7 @@ appropriate hexagon first."
   (hex-length (hex-subtract a b)))
 
 ;; We use the following Vector to calculate neighbors.
-(defconstant *hex-directions* (vector (make-hexagon :q 1 :r 0 :s -1)
+(defvar *hex-directions* (vector (make-hexagon :q 1 :r 0 :s -1)
                                      (make-hexagon :q 1 :r -1 :s 0)
                                      (make-hexagon :q 0 :r -1 :s 1)
                                      (make-hexagon :q -1 :r 0 :s 1)
@@ -113,15 +113,18 @@ appropriate hexagon first."
 
 (defun find-hex-corner (corner layout)
   (let ((angle (* 2.0 pi (/ (+ (layout-start-angle layout) corner) 6))))
-    (make-point :x (* (layout-x-size layout) (cos angle))
-                :y (* (layout-y-size layout) (sin angle)))))
+    (make-point :x (+ (* (layout-x-size layout) (cos angle)) (layout-x-origin layout))
+                :y (+ (* (layout-y-size layout) (sin angle)) (layout-y-origin layout)))))
 
-(defun draw-hex (hex canvas layout)
+(defun point-to-list (point)
+  (list (x point) (y point)))
+
+(defun draw-hex (hex layout)
   (let ((center (hex-to-pixel hex layout))
-        (points (make-array 6)))
+        (points '()))
     (dotimes (i 6)
-      (setf (elt points i) (find-hex-corner i layout)))
-     (create-polygon canvas points)))
+      (push (point-to-list (find-hex-corner i layout)) points))
+     points))
 
 (defun pixel-to-hex (origin-point point-size point)
   "Not yet implemented.")
