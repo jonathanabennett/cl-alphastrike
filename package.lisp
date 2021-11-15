@@ -1,5 +1,5 @@
 ;;;; package.lisp
 
 (defpackage #:cl-alphastrike
-  (:use #:cl #:ltk)
+  (:use #:clim #:clim-lisp)
   (:export #:main))

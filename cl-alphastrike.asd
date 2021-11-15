@@ -6,7 +6,7 @@
   :license  "MIT"
   :version "0.1"
   :serial t
-  :depends-on (#:ltk)
+  :depends-on (#:mcclim)
   :components ((:file "package")
                (:file "crew")
                (:file "map")
