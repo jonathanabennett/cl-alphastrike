@@ -60,11 +60,11 @@ appropriate hexagon first."
 
 ;; We use the following Vector to calculate neighbors.
 (defvar *hex-directions* (vector (make-hexagon :q 1 :r 0 :s -1)
-                                     (make-hexagon :q 1 :r -1 :s 0)
-                                     (make-hexagon :q 0 :r -1 :s 1)
-                                     (make-hexagon :q -1 :r 0 :s 1)
-                                     (make-hexagon :q -1 :r 1 :s 0)
-                                     (make-hexagon :q 0 :r 1 :s -1))
+                                 (make-hexagon :q 1 :r -1 :s 0)
+                                 (make-hexagon :q 0 :r -1 :s 1)
+                                 (make-hexagon :q -1 :r 0 :s 1)
+                                 (make-hexagon :q -1 :r 1 :s 0)
+                                 (make-hexagon :q 0 :r 1 :s -1))
   "This vector describes the offsets to calculate neighbors.")
 
 (defun hex-direction (direction)
@@ -100,8 +100,14 @@ appropriate hexagon first."
 
 (defun hex-to-pixel (hex layout)
   (let ((vec (layout-hex-to-pixel-matrix layout)))
-    (make-point :x (+ (* (+ (* (elt vec 0) (q hex)) (* (elt vec 1)(r hex))) (layout-x-size layout)) (layout-x-origin layout))
-                :y (+ (* (+ (* (elt vec 2)(q hex)) (* (elt vec 3)(r hex))) (layout-y-size layout)) (layout-y-origin layout)))))
+    (make-point :x (+ (* (+ (* (elt vec 0) (q hex))
+                            (* (elt vec 1) (r hex)))
+                         (layout-x-size layout))
+                      (layout-x-origin layout))
+                :y (+ (* (+ (* (elt vec 2) (q hex))
+                            (* (elt vec 3) (r hex)))
+                         (layout-y-size layout))
+                      (layout-y-origin layout)))))
 
 (defun pixel-to-hex (mouse-point layout)
   (let* ((vec (layout-pixel-to-hex-matrix layout))
@@ -111,10 +117,15 @@ appropriate hexagon first."
          (calc-r (+ (* (elt vec 2) (x modified-point)) (* (elt vec 3) (y modified-point)))))
     (make-hexagon :q calc-q :r calc-r :s (+ (* calc-q -1) (* calc-r -1)))))
 
-(defun find-hex-corner (corner layout)
-  (let ((angle (* 2.0 pi (/ (+ (layout-start-angle layout) corner) 6))))
-    (make-point :x (+ (* (layout-x-size layout) (cos angle)) (layout-x-origin layout))
-                :y (+ (* (layout-y-size layout) (sin angle)) (layout-y-origin layout)))))
+(defun find-hex-corner (center corner layout)
+  (let ((angle (* 2.0 pi (/ (+ (layout-start-angle layout)
+                               corner) 6))))
+    (make-point :x (+ (* (layout-x-size layout)
+                         (cos angle))
+                      (x center))
+                :y (+ (* (layout-y-size layout)
+                         (sin angle))
+                      (y center)))))
 
 (defun point-to-list (point)
   (list (x point) (y point)))
@@ -123,7 +134,7 @@ appropriate hexagon first."
   (let ((center (hex-to-pixel hex layout))
         (points '()))
     (dotimes (i 6)
-      (push (point-to-list (find-hex-corner i layout)) points))
+      (push (point-to-list (find-hex-corner center i layout)) points))
      points))
 
 (defun pixel-to-hex (origin-point point-size point)
