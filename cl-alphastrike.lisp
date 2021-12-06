@@ -11,6 +11,15 @@
              :x-origin 100
              :y-origin 100))
 
+(defun load-data ()
+  "Load the contents of the data directory in prepration for execution."
+  (uiop:chdir *here*)
+  (load "data/units/locust-lct-1v.lisp")
+  (load "data/units/phoenix-hawk-pxh-1d.lisp")
+  (load "data/units/marauder-mad-3r.lisp")
+  (load "data/units/longbow-lgb-0w.lisp")
+  )
+
 (defun damages-dropdown (damages-list rs-frame)
   (make-instance 'combobox :values (mapcar 'display damages-list) :master rs-frame))
 
@@ -71,15 +80,6 @@ Then, use the grid manager to pack them both into the appropriate parent frame."
     (grid heat-label 0 1)
     (grid crits-label 0 1 :rowspan 2)))
 
-(defun load-data ()
-  "Load the contents of the data directory in prepration for execution."
-  (uiop:chdir *here*)
-  (load "data/units/locust-lct-1v.lisp")
-  (load "data/units/phoenix-hawk-pxh-1d.lisp")
-  (load "data/units/marauder-mad-3r.lisp")
-  (load "data/units/longbow-lgb-0w.lisp")
-  )
-
 (defvar *test-map* (list (make-hexagon :q -1 :r -1 :s 2)
                          (make-hexagon :q 0  :r -1 :s 1)
                          (make-hexagon :q 1  :r -1 :s 0)
@@ -88,6 +88,7 @@ Then, use the grid manager to pack them both into the appropriate parent frame."
                          (make-hexagon :q 1  :r 0  :s -1)
                          (make-hexagon :q -1 :r 1  :s 0)
                          (make-hexagon :q 0  :r 1  :s -1)))
+
 (defun draw-map (map-frame height width)
   (let ((map (make-instance 'canvas :master map-frame :height height :width width)))
     (grid map 0 0 :rowspan 3)
